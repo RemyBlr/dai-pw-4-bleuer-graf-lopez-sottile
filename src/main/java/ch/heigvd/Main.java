@@ -26,9 +26,10 @@ public class Main {
         app.get("/profile", authController::profile);
 
         // Users routes
-        app.post("/users", usersController::create);
-        app.put("/users/{userId}", usersController::update);
-        app.delete("/users/{userId}", usersController::delete);
+        app.post("/users", usersController::create);            // Create
+        app.get("/users", usersController::list);               // Read
+        app.put("/users/{userId}", usersController::update);    // Update
+        app.delete("/users/{userId}", usersController::delete); // Delete
 
         app.start(PORT);
     }

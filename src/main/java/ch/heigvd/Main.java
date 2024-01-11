@@ -27,10 +27,8 @@ public class Main {
 
         // Users routes
         app.post("/users", usersController::create);
-        app.get("/users", usersController::getMany);
-        app.get("/users/{id}", usersController::getOne);
-        app.put("/users/{id}", usersController::update);
-        app.delete("/users/{id}", usersController::delete);
+        app.put("/users/{userId}", usersController::update);
+        app.delete("/users/{userId}", usersController::delete);
 
         app.start(PORT);
     }

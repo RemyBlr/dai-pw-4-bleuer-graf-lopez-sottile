@@ -3,7 +3,6 @@ package ch.heigvd.users;
 import io.javalin.http.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -82,16 +81,16 @@ public class UsersController {
 
     public void list(Context ctx) {
         String username = ctx.queryParam("username");
-
-        List<User> users = new ArrayList<>();
+        ArrayList<User> getUsers = new ArrayList<>();
 
         for (User user : this.users.values()) {
             if (username != null && !user.username.equals(username)) {
                 continue;
             }
 
-            users.add(user);
+            getUsers.add(user);
         }
 
-        ctx.json(users);    }
+        ctx.json(getUsers);
+    }
 }

@@ -78,9 +78,8 @@ public class UserGamesController {
                 break;
             }
         }
-        if(!gameFound) throw new ConflictResponse("This user doesn't own this game");
+        if(!gameFound) throw new NotFoundResponse("This user doesn't own this game"); // 404
 
-        // manque erreur 404
         ctx.status(HttpStatus.OK); // 200
     }
 
@@ -94,6 +93,7 @@ public class UserGamesController {
             gamesOfUser.add(userGame.game);
         }
 
+        ctx.status(HttpStatus.OK); // 200
         ctx.json(gamesOfUser);
-        }
+    }
 }

@@ -45,7 +45,7 @@ public class UsersController {
     public void update(Context ctx) {
         Integer id = ctx.pathParamAsClass("id", Integer.class)
                 .check(userId -> users.get(userId) != null, "User not found")
-                .getOrThrow(message -> new NotFoundResponse());
+                .getOrThrow(message -> new NotFoundResponse()); // 404
 
         User updateUser = ctx.bodyValidator(User.class)
                 .check(obj -> obj.username != null, "Missing username")
@@ -53,9 +53,12 @@ public class UsersController {
                 .check(obj -> obj.password != null, "Missing password")
                 .get();
 
-        // Manque erreur 400 et 404
+        if (updateUser.username.length() < 3) {
+            ctx.status(HttpStatus.BAD_REQUEST); // 400
+            throw new BadRequestResponse("Username must be at least 3 characters long");
+        }
 
-        User user = users.get(id);
+            User user = users.get(id);
 
         user.username = updateUser.username;
         user.email = updateUser.email;
@@ -70,11 +73,9 @@ public class UsersController {
     public void delete(Context ctx) {
         Integer id = ctx.pathParamAsClass("id", Integer.class)
                 .check(userId -> users.get(userId) != null, "User not found")
-                .getOrThrow(message -> new NotFoundResponse());
+                .getOrThrow(message -> new NotFoundResponse()); // 404
 
         users.remove(id);
-
-        // manque erreur 404
 
         ctx.status(HttpStatus.OK); // 200
     }
@@ -91,6 +92,7 @@ public class UsersController {
             getUsers.add(user);
         }
 
+        ctx.status(HttpStatus.OK); // 200
         ctx.json(getUsers);
     }
 }

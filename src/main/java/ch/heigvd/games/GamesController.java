@@ -48,13 +48,11 @@ public class GamesController {
     public void update(Context ctx) {
         Integer id = ctx.pathParamAsClass("id", Integer.class)
                 .check(gameId -> games.get(gameId) != null, "Game not found")
-                .getOrThrow(message -> new NotFoundResponse());
+                .getOrThrow(message -> new NotFoundResponse()); // 404
 
         Game updateGame = ctx.bodyValidator(Game.class)
                 .check(obj -> obj.name != null, "Missing name")
                 .get();
-
-        // Manque erreur 400 et 404
 
         Game game = games.get(id);
 
@@ -90,13 +88,14 @@ public class GamesController {
             getGames.add(game);
         }
 
+        ctx.status(HttpStatus.OK); // 200
         ctx.json(getGames);
     }
 
     public void leaderboard(Context ctx) {
         Integer id = ctx.pathParamAsClass("gameId", Integer.class)
                 .check(gameId -> games.get(gameId) != null, "Game not found")
-                .getOrThrow(message -> new NotFoundResponse());
+                .getOrThrow(message -> new NotFoundResponse()); // 404
 
         ArrayList<UserGame> leaderboard = new ArrayList<>();
 
@@ -107,6 +106,7 @@ public class GamesController {
 
         leaderboard.sort(Comparator.comparingInt(UserGame::getScore).reversed());
 
+        ctx.status(HttpStatus.OK); // 200
         ctx.json(leaderboard);
     }
 }

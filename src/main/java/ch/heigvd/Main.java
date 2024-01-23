@@ -24,7 +24,7 @@ public class Main {
         // Controllers
         AuthController authController = new AuthController(users);
         UsersController usersController = new UsersController(users);
-        GamesController gamesController = new GamesController(games, usersGames);
+        GamesController gamesController = new GamesController(games, git usersGames);
         UserGamesController userGamesController = new UserGamesController(users, games, usersGames);
 
         // Auth routes

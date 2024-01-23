@@ -1,6 +1,5 @@
 package ch.heigvd.games;
 
-import ch.heigvd.users.User;
 import io.javalin.http.ConflictResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -76,16 +75,16 @@ public class GamesController {
 
     public void list(Context ctx) {
         String name = ctx.queryParam("name");
-        ArrayList<Game> games = new ArrayList<>();
+        ArrayList<Game> getGames = new ArrayList<>();
 
         for (Game game : this.games.values()) {
-            if (game != null && !game.name.equals(name)) {
+            if (name != null && !game.name.equals(name)) {
                 continue;
             }
 
-            games.add(game);
+            getGames.add(game);
         }
 
-        ctx.json(games);
+        ctx.json(getGames);
     }
 }

@@ -42,6 +42,8 @@ public class Main {
         app.get("/games", gamesController::list);    // Read
         app.put("/games/{gameId}", gamesController::update);    // Update
         app.delete("/games/{gameId}", gamesController::delete); // Delete
+        //app.get("/games/{gameId}/leaderboard", gamesController::leaderboard); // Leaderboard
+
 
         app.post("/users/{userId}/games", userGamesController::addGame); // Add a game
         app.get("/users/{userId}", userGamesController::list); // List

@@ -11,7 +11,7 @@ public class UserGame {
 
     public int score;
 
-    public int hourPlayed;
+    public double hourPlayed;
 
     public UserGame() {
         // Empty constructor for serialisation/deserialization

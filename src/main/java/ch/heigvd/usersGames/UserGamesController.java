@@ -40,13 +40,15 @@ public class UserGamesController {
     public void addGame(Context ctx) {
         UserGame userGame = ctx.bodyValidator(UserGame.class)
                 .check(obj -> obj.game.id != null, "Missing id of game")
+                .check(obj -> obj.score >= 0, "Missing score")
+                .check(obj -> obj.hourPlayed >= 0.0, "Missing hour played")
                 .get();
         User user = checkCookie(ctx);
 
         for(UserGame ug : usersGames) {
             if(ug.user.id.equals(user.id) && ug.game.id.equals(userGame.game.id)) {
                 ctx.status(HttpStatus.BAD_REQUEST); // 400
-                throw new ConflictResponse("This user owns already this game");
+                throw new ConflictResponse("This user already owns this game");
             }
         }
 

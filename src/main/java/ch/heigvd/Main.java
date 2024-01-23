@@ -24,7 +24,7 @@ public class Main {
         // Controllers
         AuthController authController = new AuthController(users);
         UsersController usersController = new UsersController(users);
-        GamesController gamesController = new GamesController(games);
+        GamesController gamesController = new GamesController(games, usersGames);
         UserGamesController userGamesController = new UserGamesController(users, games, usersGames);
 
         // Auth routes
@@ -42,7 +42,7 @@ public class Main {
         app.get("/games", gamesController::list);    // Read
         app.put("/games/{gameId}", gamesController::update);    // Update
         app.delete("/games/{gameId}", gamesController::delete); // Delete
-        //app.get("/games/{gameId}/leaderboard", gamesController::leaderboard); // Leaderboard
+        app.get("/games/{gameId}/leaderboard", gamesController::leaderboard); // Leaderboard
 
 
         app.post("/users/{userId}/games", userGamesController::addGame); // Add a game

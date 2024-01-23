@@ -1,10 +1,13 @@
 package ch.heigvd.games;
 
+import ch.heigvd.usersGames.UserGame;
 import io.javalin.http.ConflictResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,9 +15,11 @@ public class GamesController {
 
     private final ConcurrentHashMap<Integer, Game> games;
     private final AtomicInteger gameId = new AtomicInteger();
+    private final ArrayList<UserGame> usersGames;
 
-    public GamesController(ConcurrentHashMap<Integer, Game> games) {
+    public GamesController(ConcurrentHashMap<Integer, Game> games, ArrayList<UserGame> usersGames) {
         this.games = games;
+        this.usersGames = usersGames;
     }
 
     public void create(Context ctx) {
@@ -86,5 +91,22 @@ public class GamesController {
         }
 
         ctx.json(getGames);
+    }
+
+    public void leaderboard(Context ctx) {
+        Integer id = ctx.pathParamAsClass("gameId", Integer.class)
+                .check(gameId -> games.get(gameId) != null, "Game not found")
+                .getOrThrow(message -> new NotFoundResponse());
+
+        ArrayList<UserGame> leaderboard = new ArrayList<>();
+
+        for(UserGame userGame : usersGames) {
+            if(!Objects.equals(userGame.game.id, id)) continue;
+            leaderboard.add(userGame);
+        }
+
+        leaderboard.sort(Comparator.comparingInt(UserGame::getScore).reversed());
+
+        ctx.json(leaderboard);
     }
 }

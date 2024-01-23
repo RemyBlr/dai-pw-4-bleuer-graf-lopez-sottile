@@ -18,8 +18,7 @@
 
 Remplacer ID_USER par l'ID de l'utilisateur (Ex: 0) et ID_GAME par l'ID du jeu
 
-`curl -i --cookie user=ID_USER -X POST -H "Content-Type: application/json" -d '{"game":
-{"id":ID_GAME}}' http://host.docker.internal:8181/users/ID_USER/games`
+`curl -i --cookie user=ID_USER -X POST -H "Content-Type: application/json" -d '{"game":{"id":ID_GAME},"score":123,"hourPlayed":10}' http://host.docker.internal:8181/users/ID_USER/games`
 
 # Récupérer la liste des jeux d'un utilisateur
 
@@ -32,3 +31,9 @@ Remplacer ID_USER par l'ID de l'utilisateur (Ex: 0)
 Remplacer ID_USER par l'ID de l'utilisateur (Ex: 0) et ID_GAME par l'ID du jeu
 
 `curl -i --cookie user=ID_USER -X DELETE -H "Content-Type: application/json" -d '{"game": {"id":ID_GAME}}' http://host.docker.internal:8181/users/ID_USER/games`
+
+# Afficher le leaderboard
+
+Remplacer ID_GAME par l'ID du jeu
+
+`curl -i --cookie user=ID_GAME -X GET -H "Content-Type: application/json" http://host.docker.internal:8181/games/ID_GAME/leaderboard`

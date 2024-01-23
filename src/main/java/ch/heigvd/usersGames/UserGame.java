@@ -16,4 +16,8 @@ public class UserGame {
     public UserGame() {
         // Empty constructor for serialisation/deserialization
     }
+
+    public int getScore() {
+        return score;
+    }
 }

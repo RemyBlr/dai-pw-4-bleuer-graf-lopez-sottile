@@ -20,16 +20,27 @@ These instructions will help you set up and run the Java web application on your
 
 2. Navigate to the project directory:
 
+`cd dai-pw-4-bleuer-graf-lopez-sottile`
+
 3. Build the project using Maven:
 
 `mvn clean install`
 
-### Running the Application
+### Running the Application Locally
 1. Run the Javalin application:
 
 `java -jar target/dai-pw-4-bleuer-graf-lopez-sottile-1.0-SNAPSHOT.jar`
 
 2. Open your web browser and go to http://localhost:8181 to access the application.
+
+### Running the Application with Docker
+1. Build the Docker image:
+
+``
+
+2. Run the Docker container:
+
+``
 
 ## Usage
 Below are some sample endpoints, a complete list of this API's use cases can be found in [this API.md file](API.md):
@@ -48,3 +59,11 @@ Below are some sample endpoints, a complete list of this API's use cases can be 
 - PUT /games/{gameId}: Update a game.
 - DELETE /games/{gameId}: Delete a game.
 - GET /games/{gameId}/leaderboard: Retrieve the leaderboard for a specific game.
+
+## Response Codes
+This API returns the following response codes:
+
+- 200: Success.
+- 201: Created.
+- 400: Bad request.
+- 409: Conflict.

@@ -48,7 +48,7 @@ public class UserGamesController {
         for(UserGame ug : usersGames) {
             if(ug.user.id.equals(user.id) && ug.game.id.equals(userGame.game.id)) {
                 ctx.status(HttpStatus.BAD_REQUEST); // 400
-                throw new ConflictResponse("This user already owns this game");
+                throw new ConflictResponse("This user already owns this game"); // 409
             }
         }
 

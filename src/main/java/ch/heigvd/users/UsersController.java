@@ -25,7 +25,7 @@ public class UsersController {
         for (User user : users.values()) {
             if (user.email.equals(newUser.email)) {
                 ctx.status(HttpStatus.BAD_REQUEST); // 400
-                throw new ConflictResponse("Email already exists");
+                throw new ConflictResponse("Email already exists"); // 409
             }
         }
 

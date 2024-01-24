@@ -30,7 +30,7 @@ public class GamesController {
         for (Game game : games.values()) {
             if (game.name.equals(newGame.name)) {
                 ctx.status(HttpStatus.BAD_REQUEST); // 400
-                throw new ConflictResponse("This game already exists");
+                throw new ConflictResponse("This game already exists"); // 409
             }
         }
 

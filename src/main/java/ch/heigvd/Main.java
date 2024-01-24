@@ -7,6 +7,11 @@ import ch.heigvd.usersGames.UserGame;
 import ch.heigvd.usersGames.UserGamesController;
 import io.javalin.Javalin;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,6 +53,22 @@ public class Main {
         app.post("/users/{userId}/games", userGamesController::addGame); // Add a game
         app.get("/users/{userId}", userGamesController::list); // List
         app.delete("/users/{userId}/games", userGamesController::removeGame); // Remove a game
+
+        app.get("/", ctx -> {
+            Path path = Paths.get("API.md");
+            if (Files.exists(path)) {
+                byte[] contentBytes = Files.readAllBytes(path);
+                String content = new String(contentBytes, StandardCharsets.UTF_8);
+
+                // Remove backticks around code blocks and language identifier
+                content = content.replaceAll("```[A-Za-z]+", "");
+                content = content.replaceAll("```+", "");
+
+                ctx.result(content).contentType("text/markdown; charset=UTF-8");
+            } else {
+                ctx.result("API documentation not found").status(404);
+            }
+        });
 
         app.start(PORT);
     }

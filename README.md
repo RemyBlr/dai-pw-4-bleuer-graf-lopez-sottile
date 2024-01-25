@@ -7,8 +7,7 @@ We were 4 students (Bleuer Rémy, Graf Calvin, Lopez Esteban, Sottile Alan) for 
 work in 2 parts. The first part was to create the API based on [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/21-http-and-curl),
 Calvin and Rémy worked on it. The second part was to setup the virtual machine and configure the docker created with the api to connect to the Traefik proxy so it can be accessed from the internet, based on
 [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/22-web-infrastructures)
-, Alan, Esteban and Calvin worked on this part.
-And lastly, Esteban and Rémy worked on the documentation.
+, Alan and Esteban worked on this part.
 
 ---
 ## Getting Started
@@ -32,7 +31,7 @@ These instructions will help you set up and run the Java web application on your
 
 `java -jar target/dai-pw-4-bleuer-graf-lopez-sottile-1.0-SNAPSHOT.jar`
 
-2. Open your web browser and go to http://localhost:8080 to access the application.
+2. Open your web browser and go to http://localhost:8181 to access the application.
 
 ---
 ## Running the Application outside the local network
@@ -60,16 +59,23 @@ Once we have the ssh key created, we run the following command so we link it to 
 
 (Note that the username `heiguser` and ip `10.190.132.62` are just examples for our project and wont work for your project and need to be modified).
 
-### 
+### Deploying the application
+As seen for the local installation, it's necessary to clone the projet to our server using the same command. Once cloned, we need to find the right file to run Traefik.
+```
+    cd heig-vd-course-code-examples/23-practical-work-4/traefik-secure
+```
+
+The api can be accessed because we have published the docker package and can be accessed directly from the docker-compose.yml. Now we can star the docker container.
+```
+    docker compose up -d
+```
+Now our website can be accessed through this link [https://dai.daibrgclesa.ch](https://dai.daibrgclesa.ch).
+
+----
+## Docker
+### Publish container
 
 
-1. Build the Docker image:
-
-``
-
-2. Run the Docker container:
-
-``
 
 ## Usage
 Below are some sample endpoints, a complete list of this API's use cases can be found in this [ API.md](src/main/resources/API.md) file:

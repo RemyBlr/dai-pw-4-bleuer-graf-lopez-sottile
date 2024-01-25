@@ -5,11 +5,11 @@ The application supports authentication and a leaderboard feature for a given ga
 
 We were 4 students (Bleuer Rémy, Graf Calvin, Lopez Esteban, Sottile Alan) for this practical work. We decided to split the
 work in 2 parts. The first part was to create the API based on [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/21-http-and-curl),
-Calvin and Rémy worked on it. The second part was to setup the virtual machine and .... based on
+Calvin and Rémy worked on it. The second part was to setup the virtual machine and configure the docker created with the api to connect to the Traefik proxy so it can be accessed from the internet, based on
 [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/22-web-infrastructures)
 , Alan and Esteban worked on this part.
 
-
+---
 ## Getting Started
 These instructions will help you set up and run the Java web application on your local machine.
 
@@ -33,7 +33,35 @@ These instructions will help you set up and run the Java web application on your
 
 2. Open your web browser and go to http://localhost:8181 to access the application.
 
-### Running the Application with Docker
+---
+## Running the Application outside the local network
+The application can be used outside a local network, a server deployment will be required for it to be possible. The server's ports 80 (http) and 443 (https) need to be open so the http and https works. 
+
+Once the server has setup with the needed configuration, you need to clone the repository and run the application with our docker image like following: 
+
+
+### Connection to the virtual machine
+Supposing we have a virtual machine, it's necessary to connect to it using ssh to have a secure acces: 
+
+```
+    ssh heiguser@10.190.132.62
+```
+
+Then we will be asked to add the password. However this can be modified by creating an ssh key and adding it to our virtual machine so we won't be asked to write the password every time we want to connect to the machine.
+
+### SSH key 
+First of all it's necessary to create a SSH key that will be linked to our server. This can be done by following the ["Generating a new SSH key"](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key) steps. 
+
+Once we have the ssh key created, we run the following command so we link it to the server:
+```
+    ssh-copy-id heiguser@10.190.132.62
+```
+
+(Note that the username `heiguser` and ip `10.190.132.62` are just examples for our project and wont work for your project and need to be modified).
+
+### 
+
+
 1. Build the Docker image:
 
 ``
@@ -43,7 +71,7 @@ These instructions will help you set up and run the Java web application on your
 ``
 
 ## Usage
-Below are some sample endpoints, a complete list of this API's use cases can be found in [this API.md file](API.md):
+Below are some sample endpoints, a complete list of this API's use cases can be found in this [ API.md](src/main/resources/API.md) file:
 
 ### Users:
 

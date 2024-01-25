@@ -16,21 +16,25 @@ These instructions will help you set up and run the Java web application on your
 ### Installation
 1. Clone the repository:
 
-`git clone git@github.com:RemyBlr/dai-pw-4-bleuer-graf-lopez-sottile.git`
+```bash
+    git clone https://github.com/RemyBlr/dai-pw-4-bleuer-graf-lopez-sottile.git
+```
 
 2. Navigate to the project directory:
 
-`cd dai-pw-4-bleuer-graf-lopez-sottile`
-
+```bash
+    cd dai-pw-4-bleuer-graf-lopez-sottile
+```
 3. Build the project using Maven:
 
-`mvn clean install`
-
+```
+    mvn clean install
+```
 ### Running the Application Locally
 1. Run the Javalin application:
-
-`java -jar target/dai-pw-4-bleuer-graf-lopez-sottile-1.0-SNAPSHOT.jar`
-
+```
+    java -jar target/dai-pw-4-bleuer-graf-lopez-sottile-1.0-SNAPSHOT.jar
+```
 2. Open your web browser and go to http://localhost:8181 to access the application.
 
 ---
@@ -73,11 +77,54 @@ Now our website can be accessed through this link [https://dai.daibrgclesa.ch](h
 
 ----
 ## Docker
-### Publish container
+### Create docker image
+**Warning** : This part contains names that only works for ourr project and must be adapted for everyone wanting to recreate it. 
 
+ 1. First of all we need to create the Dockerfile for our project. 
+ 2. Then build the project in the same folder as the Dockerfile
+ ```
+    docker build -t pw4-dockerfile-as-cg-el-rb:v1.0
+```
+3. Run the docker container so we create the image to upload it
+```
+    docker run --rm pw4-dockerfile-as-cg-el-rb:v1.0
+```
+### Publish the image on GitHub
+1. Create a personal access token(classic) on GIT in the `Settings/Developper Settings`.
+2. Export the personal access token as an environnment variable: 
+```
+    export GITHUB_CR_PAT=<TOKEN>
+```
+3. Then, we need to log in to the GitHub Container Registry
+```
+    echo $GITHUB_CR_PAT | docker login ghcr.io -u <username> --password-stdin
+```
+4. With the following output
+```
+    Login succeeded
+```
+5. Then it is mandatory to tag the image for it to be possible to publish 
+```
+    docker tag pw4-dockerfile-as-cg-el-rb:v1.0 ghcr.io/<username>/pw4-dockerfile-as-cg-el-rb:v1.0
+```
 
+6. Once that's done we can publish our image with the following command
+```
+    docker push ghcr.io/<username>/pw4-dockerfile-as-cg-el-rb:v1.0
+```
+7. We can now access our image on our github page! If we want it to pull the image without having to log to the Github Container Registry we need to change it's visibility (private by default) to public. For this porject **it's a mandatory step**
+```
+    https://github.com/<username>?tab=packages
+```
 
-## Usage
+### Pull an image from GitHub
+Now to get our published image we just need to run the following command:
+```
+    docker pull ghcr.io/<username>/pw4-dockerfile-as-cg-el-rb:v1.0
+```
+---
+
+## API usage
 Below are some sample endpoints, a complete list of this API's use cases can be found in this [ API.md](src/main/resources/API.md) file:
 
 ### Users:

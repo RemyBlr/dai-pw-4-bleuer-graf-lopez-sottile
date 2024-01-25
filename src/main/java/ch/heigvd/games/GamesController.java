@@ -97,14 +97,16 @@ public class GamesController {
                 .check(gameId -> games.get(gameId) != null, "Game not found")
                 .getOrThrow(message -> new NotFoundResponse()); // 404
 
-        ArrayList<UserGame> leaderboard = new ArrayList<>();
+        ArrayList<UserGame> sortedUsersGames = new ArrayList<>(usersGames);
+        sortedUsersGames.removeIf(userGame -> !Objects.equals(userGame.game.id, id));
+        sortedUsersGames.sort(Comparator.comparingInt(UserGame::getScore).reversed());
 
-        for(UserGame userGame : usersGames) {
-            if(!Objects.equals(userGame.game.id, id)) continue;
-            leaderboard.add(userGame);
+        ArrayList<String> leaderboard = new ArrayList<>();
+        int ranking = 0;
+        for (UserGame userGame : sortedUsersGames) {
+            leaderboard.add(++ranking + ". " + userGame.user.username + " - score : " + userGame.score);
         }
 
-        leaderboard.sort(Comparator.comparingInt(UserGame::getScore).reversed());
 
         ctx.status(HttpStatus.OK); // 200
         ctx.json(leaderboard);

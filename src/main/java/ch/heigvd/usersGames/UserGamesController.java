@@ -86,11 +86,12 @@ public class UserGamesController {
     public void list(Context ctx) {
         User user = checkCookie(ctx);
 
-        ArrayList<Game> gamesOfUser = new ArrayList<>();
+        ArrayList<String> gamesOfUser = new ArrayList<>();
 
         for (UserGame userGame : this.usersGames) {
             if (!userGame.user.id.equals(user.id)) continue;
-            gamesOfUser.add(userGame.game);
+            gamesOfUser.add("id : " + userGame.game.id + ", name : " + userGame.game.name + ", score : " +
+                    userGame.score + ", hours played : " + userGame.hourPlayed);
         }
 
         ctx.status(HttpStatus.OK); // 200

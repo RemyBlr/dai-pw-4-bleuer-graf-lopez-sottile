@@ -7,7 +7,8 @@ We were 4 students (Bleuer Rémy, Graf Calvin, Lopez Esteban, Sottile Alan) for 
 work in 2 parts. The first part was to create the API based on [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/21-http-and-curl),
 Calvin and Rémy worked on it. The second part was to setup the virtual machine and configure the docker created with the api to connect to the Traefik proxy so it can be accessed from the internet, based on
 [this practical work](https://github.com/heig-vd-dai-course/heig-vd-dai-course/tree/main/22-web-infrastructures)
-, Alan and Esteban worked on this part.
+, Alan, Esteban and Calvin worked on this part.
+And lastly, Esteban and Rémy worked on the documentation.
 
 ---
 ## Getting Started
@@ -31,7 +32,7 @@ These instructions will help you set up and run the Java web application on your
 
 `java -jar target/dai-pw-4-bleuer-graf-lopez-sottile-1.0-SNAPSHOT.jar`
 
-2. Open your web browser and go to http://localhost:8181 to access the application.
+2. Open your web browser and go to http://localhost:8080 to access the application.
 
 ---
 ## Running the Application outside the local network

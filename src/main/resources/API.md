@@ -14,7 +14,8 @@ curl -i -X POST\
 {
   "id": 1,
   "username": "testUser",
-  "email": "abc@def.com"
+  "email": "abc@def.com",
+  "password": "secret"
 }
 ```
 
@@ -39,7 +40,8 @@ curl -i -X GET\
 {
   "id": 1,
   "username": "testUser",
-  "email": "abc@def.com"
+  "email": "abc@def.com",
+  "password": "secret"
 }
 ```
 
@@ -47,7 +49,7 @@ curl -i -X GET\
 
 ```json
 {
-  "error": "User not found"
+  "error": "not found"
 }
 ```
 
@@ -60,12 +62,20 @@ curl -i -X POST\
       http://dai.daibrgclesa.ch/login
 ```
 
-### Response in case of success (Code 200 OK):
-```json
+### Response in case of success (Code 204 No Content):
+```bash
+HTTP/1.1 204 No Content
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:25:40 GMT
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Set-Cookie: user=1; Path=/
 ```
 
 ### Response in case of failure (Code 401 Unauthorized):
 ```json
+{
+  "error": "Unauthorized"
+}
 ```
 
 ## Create a game
@@ -89,7 +99,7 @@ curl -i -X POST\
 
 ```json
 {
-  "error": "Game already exists"
+  "error": "This game already exists"
 }
 ```
 
@@ -107,13 +117,18 @@ curl -i --cookie user=ID_USER -X POST\
 ### Response in case of success (Code 201 Created):
 ```json
 {
-  "id": 1,
-  "game": {
-    "id": 1,
-    "name": "Minecraft"
+  "user":{
+    "id":1,
+    "username":"testUser",
+    "email":"abc@def.com",
+    "password":"secret"
   },
-  "score": 123,
-  "hourPlayed": 10
+  "game":{
+    "id":0,
+    "name":"Minecraft"
+  },
+  "score":123,
+  "hourPlayed":10.0
 }
 ```
 
@@ -121,7 +136,7 @@ curl -i --cookie user=ID_USER -X POST\
 
 ```json
 {
-  "error": "Game already exists"
+  "error": "This user already owns this game"
 }
 ```
 
@@ -137,11 +152,9 @@ curl -i --cookie user=ID_USER -X GET\
 
 ### Response in case of success (Code 200 OK):
 ```json
-```
-
-### Response in case of failure (Code 404 Not Found):
-
-```json
+[
+   "id : 0, name : Minecraft, score : 123, hours played : 10.0"
+]
 ```
 
 ## Delete a game from an user
@@ -156,12 +169,20 @@ curl -i --cookie user=ID_USER -X DELETE\
 ```
 
 ### Response in case of success (Code 200 OK):
-```json
+
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:36:11 GMT
 ```
 
 ### Response in case of failure (Code 404 Not Found):
 
 ```json
+{
+  "error": "This user doesn't own this game"
+}
 ```
 
 ## Get a game's leaderboard
@@ -176,11 +197,40 @@ curl -i --cookie user=ID_GAME -X GET\
 
 ### Response in case of success (Code 200 OK):
 ```json
+[
+   "1. AlanS - score : 12300",
+   "2. testUser - score : 123"
+]
 ```
 
 ### Response in case of success (Code 404 Not Found):
 
 ```json
+{
+  "error": "Not found"
+}
+```
+
+## Delete an user
+```bash
+curl -i -X DELETE http://dai.daibrgclesa.ch/users/ID_USER
+```
+
+### Response in case of success (Code 200 OK):
+
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:57:45 GMT
+```
+
+### Response in case of failure (Code 404 Not Found):
+
+```json
+{
+  "error": "This user doesn't exist"
+}
 ```
 
 ---
@@ -219,6 +269,14 @@ curl -i -X GET\
 
 ### Result
 ```json
+[
+   {
+      "id":2,
+      "username":"sacha2bourgpalette",
+      "email":"pokemon4life@kanto.com",
+      "password":"pikachu123"
+   }
+]
 ```
 
 ## Connect users
@@ -242,7 +300,12 @@ curl -i -X POST\
 ```
 
 ### Result
-```json
+```bash
+HTTP/1.1 204 No Content
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:42:22 GMT
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Set-Cookie: user=3; Path=/
 ```
 
 ## Add games
@@ -261,16 +324,6 @@ curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"name":"Pokemon"}'\
       http://dai.daibrgclesa.ch/games
-```
-
-## Get games
-
-### Game 1
-```bash
-```
-
-### Result
-```json
 ```
 
 ## Add games to users
@@ -310,19 +363,27 @@ curl -i --cookie user=0 -X GET\
 
 ### Result
 ```json
+[
+   "id : 0, name : Minecraft, score : 123, hours played : 10.0",
+   "id : 1, name : Pokemon, score : 123, hours played : 10.0"
+]
 ```
 
 ## Display a game's leaderboard
 
 ### Game 1
 ```bash
-curl -i --cookie user=1 -X GET\
+curl -i --cookie user=2 -X GET\
       -H "Content-Type: application/json"\
       http://dai.daibrgclesa.ch/games/0/leaderboard
 ```
 
 ### Result
 ```json
+[
+   "1. BlockHead - score : 1000",
+   "2. sacha2bourgpalette - score : 123"
+]
 ```
 
 ## Delete a game from an user
@@ -336,15 +397,24 @@ curl -i --cookie user=0 -X DELETE\
 ```
 
 ### Result
-```json
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:48:03 GMT
 ```
 
 ## Delete an user
 
 ### User 1
 ```bash
+curl -i -X DELETE http://dai.daibrgclesa.ch/users/0
 ```
 
 ### Result
-```json
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:58:32 GMT
 ```

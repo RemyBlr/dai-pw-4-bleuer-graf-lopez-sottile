@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
-    public static final int PORT = 8181;
+    public static final int PORT = 8080;
 
     public static void main(String[] args) {
         Javalin app = Javalin.create();
@@ -49,7 +49,7 @@ public class Main {
         app.delete("/games/{gameId}", gamesController::delete); // Delete
         app.get("/games/{gameId}/leaderboard", gamesController::leaderboard); // Leaderboard
 
-
+        // Routes that link user and
         app.post("/users/{userId}/games", userGamesController::addGame); // Add a game
         app.get("/users/{userId}", userGamesController::list); // List
         app.delete("/users/{userId}/games", userGamesController::removeGame); // Remove a game

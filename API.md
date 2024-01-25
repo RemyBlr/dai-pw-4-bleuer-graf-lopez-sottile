@@ -6,7 +6,7 @@
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"username":"testUser","email":"abc@def.com","password":"secret"}'\
-      http://host.docker.internal:8181/users
+      http://dai.daibrgclesa.ch/users
 ```
 
 ### Response in case of success (Code 201 Created):
@@ -31,7 +31,7 @@ curl -i -X POST\
 ```bash
 curl -i -X GET\
       -H "Content-Type: application/json"\
-      "http://host.docker.internal:8181/users?username=testUser"
+      "http://dai.daibrgclesa.ch/users?username=testUser"
 ```
 
 ### Response in case of success (Code 200 OK):
@@ -57,7 +57,7 @@ curl -i -X GET\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"email":"abc@def.com","password":"secret"}'\
-      http://host.docker.internal:8181/login
+      http://dai.daibrgclesa.ch/login
 ```
 
 ### Response in case of success (Code 200 OK):
@@ -74,7 +74,7 @@ curl -i -X POST\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"name":"Minecraft"}'\
-      http://host.docker.internal:8181/games
+      http://dai.daibrgclesa.ch/games
 ```
 
 ### Response in case of success (Code 201 Created):
@@ -101,7 +101,7 @@ Replace ID_USER with the user's ID (Ex: 0) and ID_GAME with the game's ID
 curl -i --cookie user=ID_USER -X POST\
       -H "Content-Type: application/json"\
       -d '{"game":{"id":ID_GAME},"score":123,"hourPlayed":10}'\
-      http://host.docker.internal:8181/users/ID_USER/games
+      http://dai.daibrgclesa.ch/users/ID_USER/games
 ```
 
 ### Response in case of success (Code 201 Created):
@@ -132,7 +132,7 @@ Replace ID_USER with the user's ID (Ex: 0)
 ```bash
 curl -i --cookie user=ID_USER -X GET\
       -H "Content-Type: application/json"\
-      http://host.docker.internal:8181/users/ID_USER
+      http://dai.daibrgclesa.ch/users/ID_USER
 ```
 
 ### Response in case of success (Code 200 OK):
@@ -152,7 +152,7 @@ Replace ID_USER with the user's ID (Ex: 0) and ID_GAME with the game's ID
 curl -i --cookie user=ID_USER -X DELETE\
       -H "Content-Type: application/json"\
       -d '{"game": {"id":ID_GAME}}'\
-      http://host.docker.internal:8181/users/ID_USER/games
+      http://dai.daibrgclesa.ch/users/ID_USER/games
 ```
 
 ### Response in case of success (Code 200 OK):
@@ -171,7 +171,7 @@ Replace ID_GAME with the game's ID
 ```bash
 curl -i --cookie user=ID_GAME -X GET\
       -H "Content-Type: application/json"\
-      http://host.docker.internal:8181/games/ID_GAME/leaderboard
+      http://dai.daibrgclesa.ch/games/ID_GAME/leaderboard
 ```
 
 ### Response in case of success (Code 200 OK):
@@ -196,7 +196,7 @@ In this example, we will create two users, two games and add games to these user
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"username":"sacha2bourgpalette","email":"pokemon4life@kanto.com","password":"pikachu123"}'\
-      http://host.docker.internal:8181/users
+      http://dai.daibrgclesa.ch/users
 ```
 
 ### User 2
@@ -205,7 +205,7 @@ curl -i -X POST\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"username":"BlockHead","email":"steve@minecraft.com","password":"H3r0br1n3"}'\
-      http://host.docker.internal:8181/users
+      http://dai.daibrgclesa.ch/users
 ```
 
 ## Get users
@@ -214,7 +214,7 @@ curl -i -X POST\
 ```bash
 curl -i -X GET\
       -H "Content-Type: application/json"\
-      "http://host.docker.internal:8181/users?username=sacha2bourgpalette"
+      "http://dai.daibrgclesa.ch/users?username=sacha2bourgpalette"
 ```
 
 ### Result
@@ -230,7 +230,7 @@ An user must be connected to add a game to his list of games.
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"email":"pokemon4life@kanto.com","password":"pikachu123"}'\
-      http://host.docker.internal:8181/login
+      http://dai.daibrgclesa.ch/login
 ```
 
 ### User 2
@@ -238,7 +238,7 @@ curl -i -X POST\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"email":"steve@minecraft.com","password":"H3r0br1n3"}'\
-      http://host.docker.internal:8181/login
+      http://dai.daibrgclesa.ch/login
 ```
 
 ### Result
@@ -252,7 +252,7 @@ curl -i -X POST\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"name":"Minecraft"}'\
-      http://host.docker.internal:8181/games
+      http://dai.daibrgclesa.ch/games
 ```
 
 ### Game 2
@@ -260,7 +260,7 @@ curl -i -X POST\
 curl -i -X POST\
       -H "Content-Type: application/json"\
       -d '{"name":"Pokemon"}'\
-      http://host.docker.internal:8181/games
+      http://dai.daibrgclesa.ch/games
 ```
 
 ## Get games
@@ -280,7 +280,7 @@ curl -i -X POST\
 curl -i --cookie user=0 -X POST\
       -H "Content-Type: application/json"\
       -d '{"game":{"id":0},"score":123,"hourPlayed":10}'\
-      http://host.docker.internal:8181/users/0/games
+      http://dai.daibrgclesa.ch/users/0/games
 ```
 
 ### Game 1 to user 2
@@ -288,7 +288,7 @@ curl -i --cookie user=0 -X POST\
 curl -i --cookie user=1 -X POST\
       -H "Content-Type: application/json"\
       -d '{"game":{"id":0},"score":1000,"hourPlayed":100}'\
-      http://host.docker.internal:8181/users/1/games
+      http://dai.daibrgclesa.ch/users/1/games
 ```
 
 ### Game 2 to user 1
@@ -296,7 +296,7 @@ curl -i --cookie user=1 -X POST\
 curl -i --cookie user=0 -X POST\
       -H "Content-Type: application/json"\
       -d '{"game":{"id":1},"score":123,"hourPlayed":10}'\
-      http://host.docker.internal:8181/users/0/games
+      http://dai.daibrgclesa.ch/users/0/games
 ```
 
 ## Get an user's games
@@ -305,7 +305,7 @@ curl -i --cookie user=0 -X POST\
 ```bash
 curl -i --cookie user=0 -X GET\
       -H "Content-Type: application/json"\
-      http://host.docker.internal:8181/users/0
+      http://dai.daibrgclesa.ch/users/0
 ```
 
 ### Result
@@ -318,7 +318,7 @@ curl -i --cookie user=0 -X GET\
 ```bash
 curl -i --cookie user=1 -X GET\
       -H "Content-Type: application/json"\
-      http://host.docker.internal:8181/games/0/leaderboard
+      http://dai.daibrgclesa.ch/games/0/leaderboard
 ```
 
 ### Result
@@ -332,7 +332,7 @@ curl -i --cookie user=1 -X GET\
 curl -i --cookie user=0 -X DELETE\
       -H "Content-Type: application/json"\
       -d '{"game": {"id":0}}'\
-      http://host.docker.internal:8181/users/0/games
+      http://dai.daibrgclesa.ch/users/0/games
 ```
 
 ### Result

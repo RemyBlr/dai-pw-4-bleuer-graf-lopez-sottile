@@ -233,6 +233,65 @@ Date: Thu, 25 Jan 2024 19:57:45 GMT
 }
 ```
 
+## Update an user
+
+Replace ID_USER with the user's ID (Ex: 0)
+
+```bash
+curl -i -X PUT -H "Content-Type: application/json" -d \
+'{"username":"AlanS","email":"alan@gmail.com","password":"alan"}' http://dai.daibrgclesa.ch/users/ID_USER
+```
+
+### Response in case of success (Code 200 OK):
+
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Thu, 25 Jan 2024 19:57:45 GMT
+```
+
+### Response in case of failure (Code 400 Bad Request):
+
+```json
+{
+  "error": "Username must be at least 3 characters long"
+}
+```
+
+### Response in case of failure (Code 404 Not Found):
+
+```json
+{
+  "error": "User not found"
+}
+```
+
+## Update a game
+
+Replace ID_GAME with the game's ID
+
+```bash
+curl -i -X PUT -H "Content-Type: application/json" -d \
+      '{"name":"minecraft"}' http://dai.daibrgclesa.ch/games/ID_GAME
+```
+
+### Response in case of success (Code 200 OK):
+    
+```bash
+HTTP/1.1 200 OK
+Content-Length: 0
+Content-Type: text/plain
+Date: Fri, 26 Jan 2024 09:18:34 GMT
+```
+
+### Response in case of failure (Code 404 Not Found):
+    
+```json
+{
+"error": "Game not found"
+}
+```
 ---
 
 # Example scenario

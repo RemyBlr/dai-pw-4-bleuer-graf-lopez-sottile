@@ -43,7 +43,7 @@ public class UsersController {
     }
 
     public void update(Context ctx) {
-        Integer id = ctx.pathParamAsClass("id", Integer.class)
+        Integer id = ctx.pathParamAsClass("userId", Integer.class)
                 .check(userId -> users.get(userId) != null, "User not found")
                 .getOrThrow(message -> new NotFoundResponse()); // 404
 
@@ -71,7 +71,7 @@ public class UsersController {
     }
 
     public void delete(Context ctx) {
-        Integer id = ctx.pathParamAsClass("id", Integer.class)
+        Integer id = ctx.pathParamAsClass("userId", Integer.class)
                 .check(userId -> users.get(userId) != null, "User not found")
                 .getOrThrow(message -> new NotFoundResponse()); // 404
 

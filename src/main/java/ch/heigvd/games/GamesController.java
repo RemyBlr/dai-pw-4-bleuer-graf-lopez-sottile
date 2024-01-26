@@ -46,7 +46,7 @@ public class GamesController {
     }
 
     public void update(Context ctx) {
-        Integer id = ctx.pathParamAsClass("id", Integer.class)
+        Integer id = ctx.pathParamAsClass("gameId", Integer.class)
                 .check(gameId -> games.get(gameId) != null, "Game not found")
                 .getOrThrow(message -> new NotFoundResponse()); // 404
 
@@ -65,7 +65,7 @@ public class GamesController {
     }
 
     public void delete(Context ctx) {
-        Integer id = ctx.pathParamAsClass("id", Integer.class)
+        Integer id = ctx.pathParamAsClass("gameId", Integer.class)
                 .check(gameId -> games.get(gameId) != null, "Game not found")
                 .getOrThrow(message -> new NotFoundResponse());
 
